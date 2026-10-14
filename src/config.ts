@@ -1,25 +1,3 @@
-// oauth-hub — Standalone whitelabel hub for Meta channels.
-// Copyright (C) 2026 Comunidade ZDG
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of version 3 of the GNU Affero General Public License as
-// published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-//
-// Source: https://github.com/pedroherpeto/oauth-hub-zdg
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Global configuration + per-app helpers (multi-app).
-// App credentials live in the apps store; this module resolves global bits
-// (brand, public URL, secrets) and computes per-app webhook/redirect URLs.
-// ─────────────────────────────────────────────────────────────────────────────
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
@@ -59,13 +37,13 @@ export const SESSION_SECRET = (() => {
     fs.writeFileSync(file, gen, { encoding: "utf-8", mode: 0o600 });
     console.warn(
       "[config] SESSION_SECRET not set — generated and persisted one at data/.session-secret. " +
-        "Set SESSION_SECRET in the environment to control it in production."
+      "Set SESSION_SECRET in the environment to control it in production."
     );
     return gen;
   } catch (e) {
     console.warn(
       "[config] SESSION_SECRET not set and could not persist a generated one; " +
-        "falling back to an ephemeral secret (breaks sessions/OAuth on restart).",
+      "falling back to an ephemeral secret (breaks sessions/OAuth on restart).",
       e
     );
     return crypto.randomBytes(32).toString("hex");

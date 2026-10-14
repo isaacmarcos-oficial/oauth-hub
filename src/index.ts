@@ -1,27 +1,3 @@
-// oauth-hub — Standalone whitelabel hub for Meta channels.
-// Copyright (C) 2026 Comunidade ZDG
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of version 3 of the GNU Affero General Public License as
-// published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-//
-// Source: https://github.com/pedroherpeto/oauth-hub-zdg
-
-// ─────────────────────────────────────────────────────────────────────────────
-// oauth-hub — standalone whitelabel hub (multi-app).
-// Connects Meta channels (WhatsApp Business, Messenger, Instagram) via each
-// registered app's own OAuth, receives + displays their webhook interactions,
-// and routes (forwards) those webhooks per-app to other endpoints.
-// No external license check and no dependency on any other backend.
-// ─────────────────────────────────────────────────────────────────────────────
 import "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
@@ -116,7 +92,7 @@ function renderResultPage(res: Response, ok: boolean, lang: string, titleKey: st
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.send(`<!DOCTYPE html><html lang="${L}"><head><meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>${htmlEscape(title)} · ZDG</title>
+<title>${htmlEscape(title)} · IGNIS HUB</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -139,7 +115,7 @@ function renderResultPage(res: Response, ok: boolean, lang: string, titleKey: st
   <a class="back" href="/">${htmlEscape(back)}</a>
 </div>
 <div class="promo-foot">
-  <a href="https://www.youtube.com/channel/UCrPbAoQKz42Gm0mLdWatAEA" target="_blank" rel="noopener">${htmlEscape(footer)}</a> · <a href="https://zpro.zdg.com.br/" target="_blank" rel="noopener">${htmlEscape(knowZpro)}</a>
+  <a href="https://www.youtube.com/channel/UCrPbAoQKz42Gm0mLdWatAEA" target="_blank" rel="noopener">${htmlEscape(footer)}</a> · <a href="https://ignishub.com.br/" target="_blank" rel="noopener">${htmlEscape(knowZpro)}</a>
 </div>
 <script>
   try { if (window.opener) { window.opener.postMessage({ type: 'hub:connected', ok: ${ok ? "true" : "false"} }, window.location.origin); setTimeout(function(){ window.close(); }, 2500); } } catch(e){}
@@ -656,7 +632,7 @@ app.post("/api/connect/messenger/exchange", apiLimiter, async (req: Request, res
       }
       if (!pages.length) {
         let granted: string[] = [];
-        try { granted = (await meta.getMePermissions(longToken, app.apiVersion)).granted; } catch {}
+        try { granted = (await meta.getMePermissions(longToken, app.apiVersion)).granted; } catch { }
         // WhatsApp scopes + no Page scopes ⇒ a WhatsApp Embedded Signup config_id
         // was used for the Messenger flow; it can never return a Facebook Page.
         const wrongWaba = wabaScopeFound && !pageScopeFound;

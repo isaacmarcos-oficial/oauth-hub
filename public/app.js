@@ -11,7 +11,7 @@
   var publicUrl = "";
   var liveOn = true;
   var soundOn = false;
-  try { soundOn = localStorage.getItem("hub_sound") === "1"; } catch (e) {}
+  try { soundOn = localStorage.getItem("hub_sound") === "1"; } catch (e) { }
 
   var YT_URL = "https://www.youtube.com/channel/UCrPbAoQKz42Gm0mLdWatAEA";
   var ZP_URL = "https://zpro.zdg.com.br/";
@@ -88,14 +88,14 @@
       ov.className = "modal-overlay";
       ov.innerHTML =
         '<div class="modal" role="dialog" aria-modal="true">' +
-          '<div class="modal-msg">' + esc(message) + "</div>" +
-          '<div class="modal-actions">' +
-            '<button class="btn ghost" data-c="0">' + esc(t("form.cancel")) + "</button>" +
-            '<button class="btn ' + (danger ? "danger" : "") + '" data-c="1">' + esc(confirmLabel || t("form.create")) + "</button>" +
-          "</div>" +
+        '<div class="modal-msg">' + esc(message) + "</div>" +
+        '<div class="modal-actions">' +
+        '<button class="btn ghost" data-c="0">' + esc(t("form.cancel")) + "</button>" +
+        '<button class="btn ' + (danger ? "danger" : "") + '" data-c="1">' + esc(confirmLabel || t("form.create")) + "</button>" +
+        "</div>" +
         "</div>";
       document.body.appendChild(ov);
-      function done(v) { document.removeEventListener("keydown", onKey); ov.remove(); if (prevFocus && prevFocus.focus) { try { prevFocus.focus(); } catch (e) {} } resolve(v); }
+      function done(v) { document.removeEventListener("keydown", onKey); ov.remove(); if (prevFocus && prevFocus.focus) { try { prevFocus.focus(); } catch (e) { } } resolve(v); }
       function onKey(e) { if (e.key === "Escape") done(false); }
       ov.addEventListener("click", function (e) {
         if (e.target === ov) return done(false);
@@ -208,10 +208,10 @@
     ov.className = "video-lightbox"; ov.id = "videoLightbox";
     ov.innerHTML =
       '<div class="vl-inner">' +
-        '<button class="vl-close" type="button" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button>" +
-        '<div class="vl-frame"><iframe src="https://www.youtube.com/embed/' + encodeURIComponent(id) +
-          '?autoplay=1&rel=0&playsinline=1&modestbranding=1" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>' +
-        '<a class="vl-yt" href="https://youtu.be/' + encodeURIComponent(id) + '" target="_blank" rel="noopener">' + esc(t("video.watchYoutube")) + "</a>" +
+      '<button class="vl-close" type="button" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button>" +
+      '<div class="vl-frame"><iframe src="https://www.youtube.com/embed/' + encodeURIComponent(id) +
+      '?autoplay=1&rel=0&playsinline=1&modestbranding=1" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>' +
+      '<a class="vl-yt" href="https://youtu.be/' + encodeURIComponent(id) + '" target="_blank" rel="noopener">' + esc(t("video.watchYoutube")) + "</a>" +
       "</div>";
     document.body.appendChild(ov);
     document.body.style.overflow = "hidden";
@@ -257,7 +257,7 @@
   }
   function toggleTheme() {
     var th = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    try { localStorage.setItem("hub_theme", th); } catch (e) {}
+    try { localStorage.setItem("hub_theme", th); } catch (e) { }
     applyTheme(th); renderOverview();
   }
 
@@ -280,7 +280,7 @@
       if (sub) sub.innerHTML = s.channels ? icon("check") + "<span>" + esc(t("overview.subscribed", { n: s.subscribed, total: s.channels })) + "</span>" : "";
       setNavCount("navCountApps", s.apps); setNavCount("navCountChannels", s.channels);
       if (currentTab() === "overview") { renderChannelMix(); renderKpiSpark(); }
-    }).catch(function () {});
+    }).catch(function () { });
   }
   function setNavCount(id, n) { var el = $(id); if (!el) return; if (n > 0) { el.textContent = n; el.hidden = false; } else { el.hidden = true; } }
 
@@ -341,11 +341,11 @@
     if (hasApp && hasVerify && hasChannel) {
       box.innerHTML =
         '<div class="panel-eyebrow">' + icon("sparkles") + "<span>" + esc(t("overview.promoEyebrow")) + "</span></div>" +
-        '<a href="' + ZP_URL + '" target="_blank" rel="noopener" aria-label="Z-PRO"><img class="zpro-logo-light" src="/assets/zpro-logo.png" alt="Z-PRO" style="margin:.2rem 0 .85rem" /></a>' +
+        '<a href="' + ZP_URL + '" target="_blank" rel="noopener" aria-label="IGNISHUB CONNECT"><img class="zpro-logo-light" src="/assets/zpro-logo.png" alt="IGNISHUB CONNECT" style="margin:.2rem 0 .85rem" /></a>' +
         '<p style="font-size:.85rem;color:var(--muted);line-height:1.55;margin-bottom:1rem">' + t("config.aboutP") + "</p>" +
         '<div class="side-cta">' +
-          '<a class="btn yt" href="' + YT_URL + '?sub_confirmation=1" target="_blank" rel="noopener">' + icon("youtube") + "<span>" + esc(t("welcome.subscribe")) + "</span></a>" +
-          '<a class="btn secondary" href="' + ZP_URL + '" target="_blank" rel="noopener">' + esc(t("hero.knowZpro")) + "</a>" +
+        '<a class="btn yt" href="' + YT_URL + '?sub_confirmation=1" target="_blank" rel="noopener">' + icon("youtube") + "<span>" + esc(t("welcome.subscribe")) + "</span></a>" +
+        '<a class="btn secondary" href="' + ZP_URL + '" target="_blank" rel="noopener">' + esc(t("hero.knowZpro")) + "</a>" +
         "</div>";
       return;
     }
@@ -357,9 +357,9 @@
     box.innerHTML =
       '<div class="panel-eyebrow">' + icon("rocket") + "<span>" + esc(t("overview.setupTitle")) + "</span></div>" +
       '<div class="checklist">' +
-        item(hasApp, "overview.step1Title", "overview.step1Sub") +
-        item(hasVerify, "overview.step2Title", "overview.step2Sub") +
-        item(hasChannel, "overview.step3Title", "overview.step3Sub") +
+      item(hasApp, "overview.step1Title", "overview.step1Sub") +
+      item(hasVerify, "overview.step2Title", "overview.step2Sub") +
+      item(hasChannel, "overview.step3Title", "overview.step3Sub") +
       "</div>" +
       (next ? '<div class="check-cta"><button class="btn" id="ovChecklistCta">' + esc(t(next === "newapp" ? "overview.checkAddApp" : "overview.checkConnect")) + "</button></div>" : "");
     var cta = $("ovChecklistCta");
@@ -382,7 +382,7 @@
   var welcomeProceed = null;
   function welcomedAlready() { try { return localStorage.getItem("hub_welcomed") === "1"; } catch (e) { return false; } }
   function showWelcome(proceed) { welcomeProceed = proceed; hide($("login")); hide($("app")); show($("welcome")); }
-  function dismissWelcome() { try { localStorage.setItem("hub_welcomed", "1"); } catch (e) {} hide($("welcome")); var p = welcomeProceed; welcomeProceed = null; if (p) p(); }
+  function dismissWelcome() { try { localStorage.setItem("hub_welcomed", "1"); } catch (e) { } hide($("welcome")); var p = welcomeProceed; welcomeProceed = null; if (p) p(); }
   function openWelcome() { showWelcome(function () { show($("app")); }); }
 
   var adminAuthEnabled = false;
@@ -509,21 +509,21 @@
       var coll = appCollapsed.hasOwnProperty(a.id) ? appCollapsed[a.id] : (apps.length >= 3);
       return '<div class="app-card' + (coll ? " collapsed" : "") + '">' +
         '<div class="app-head">' +
-          '<div class="app-title"><span class="app-name">' + esc(a.name) + '</span> <span class="badge neutral">' + a.channelCount + " " + esc(t("apps.channelsSuffix")) + "</span> " + modeBadge + embedBadge + "</div>" +
-          '<div class="app-head-actions"><button class="btn secondary tiny" data-editapp="' + escAttr(a.id) + '">' + esc(t("apps.edit")) + "</button>" +
-          '<button class="btn danger tiny" data-delapp="' + escAttr(a.id) + '">' + esc(t("apps.remove")) + "</button>" +
-          '<button class="btn ghost icon-btn tiny app-toggle" data-toggleapp="' + escAttr(a.id) + '" aria-expanded="' + (coll ? "false" : "true") + '" title="' + escAttr(t("apps.toggle")) + '">' + icon("chevron") + "</button></div>" +
+        '<div class="app-title"><span class="app-name">' + esc(a.name) + '</span> <span class="badge neutral">' + a.channelCount + " " + esc(t("apps.channelsSuffix")) + "</span> " + modeBadge + embedBadge + "</div>" +
+        '<div class="app-head-actions"><button class="btn secondary tiny" data-editapp="' + escAttr(a.id) + '">' + esc(t("apps.edit")) + "</button>" +
+        '<button class="btn danger tiny" data-delapp="' + escAttr(a.id) + '">' + esc(t("apps.remove")) + "</button>" +
+        '<button class="btn ghost icon-btn tiny app-toggle" data-toggleapp="' + escAttr(a.id) + '" aria-expanded="' + (coll ? "false" : "true") + '" title="' + escAttr(t("apps.toggle")) + '">' + icon("chevron") + "</button></div>" +
         "</div>" +
         '<div class="app-body">' +
-          '<div class="sub mono">' + esc(t("apps.appId")) + ": " + esc(a.appId) + " · " + esc(t("apps.api")) + " " + esc(a.apiVersion) +
-            " · " + esc(t("apps.verifyToken")) + " " + (a.webhookVerifyTokenSet ? esc(defined) : undef) +
-            " · " + esc(t("apps.secret")) + " " + (a.hasAppSecret ? esc(defined) : undef) + "</div>" +
-          '<div class="url-box" style="margin-top:.7rem"><span class="lbl">' + esc(t("apps.webhook")) + '</span><code>' + esc(a.webhookUrls.unified) + '</code><button class="btn secondary copy tiny" data-copy-text="' + escAttr(a.webhookUrls.unified) + '">' + esc(t("apps.copy")) + "</button></div>" +
-          '<div class="url-box"><span class="lbl">' + esc(t("apps.igRedirect")) + '</span><code>' + esc(a.redirectUri) + '</code><button class="btn secondary copy tiny" data-copy-text="' + escAttr(a.redirectUri) + '">' + esc(t("apps.copy")) + "</button></div>" +
-          '<div class="fwd-summary">' + forwardsSummary(a.forwards) + "</div>" +
-          embedSection(a) +
+        '<div class="sub mono">' + esc(t("apps.appId")) + ": " + esc(a.appId) + " · " + esc(t("apps.api")) + " " + esc(a.apiVersion) +
+        " · " + esc(t("apps.verifyToken")) + " " + (a.webhookVerifyTokenSet ? esc(defined) : undef) +
+        " · " + esc(t("apps.secret")) + " " + (a.hasAppSecret ? esc(defined) : undef) + "</div>" +
+        '<div class="url-box" style="margin-top:.7rem"><span class="lbl">' + esc(t("apps.webhook")) + '</span><code>' + esc(a.webhookUrls.unified) + '</code><button class="btn secondary copy tiny" data-copy-text="' + escAttr(a.webhookUrls.unified) + '">' + esc(t("apps.copy")) + "</button></div>" +
+        '<div class="url-box"><span class="lbl">' + esc(t("apps.igRedirect")) + '</span><code>' + esc(a.redirectUri) + '</code><button class="btn secondary copy tiny" data-copy-text="' + escAttr(a.redirectUri) + '">' + esc(t("apps.copy")) + "</button></div>" +
+        '<div class="fwd-summary">' + forwardsSummary(a.forwards) + "</div>" +
+        embedSection(a) +
         "</div>" +
-      "</div>";
+        "</div>";
     }).join("");
     Array.prototype.forEach.call(el.querySelectorAll("[data-editapp]"), function (b) {
       b.addEventListener("click", function () { var a = appsCache.filter(function (x) { return x.id === b.getAttribute("data-editapp"); })[0]; if (a) openAppForm(a); });
@@ -559,7 +559,7 @@
       '<select class="fwd-prod">' + opts + "</select>" +
       '<label class="fwd-en"><input type="checkbox"' + (f.enabled !== false ? " checked" : "") + " /> " + esc(t("form.fwdActive")) + "</label>" +
       '<button type="button" class="btn ghost fwd-del" title="' + escAttr(t("apps.remove")) + '">×</button>' +
-    "</div>";
+      "</div>";
   }
 
   var drawerEl = null, drawerReturnFocus = null;
@@ -569,7 +569,7 @@
     el.classList.remove("open");
     document.removeEventListener("keydown", drawerKeydown);
     setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
-    if (drawerReturnFocus && drawerReturnFocus.focus) { try { drawerReturnFocus.focus(); } catch (e) {} }
+    if (drawerReturnFocus && drawerReturnFocus.focus) { try { drawerReturnFocus.focus(); } catch (e) { } }
     drawerReturnFocus = null;
   }
   function drawerKeydown(e) {
@@ -603,27 +603,27 @@
       '<div class="grid2">' + field("afMsgr", "form.msgrConfig", app.messengerConfigId || "", "form.msgrConfigPh") + field("afIgId", "form.igId", app.instagramAppId || "", "form.igIdPh", null, ' <span class="hint">' + esc(t("form.optional")) + "</span>") + "</div>" +
       field("afIgSecret", "form.igSecret", null, igSecPh, "password") +
       '<div class="field"><label for="afMsgrToken">' + esc(t("form.fallbackToken")) + ' <span class="hint">' + esc(t("form.optional")) + "</span></label>" +
-        '<input id="afMsgrToken" placeholder="' + escAttr(t(app.hasMessengerFallbackToken ? "form.secretKeep" : "form.fallbackTokenPh")) + '" />' +
-        '<div class="hint">' + esc(t("form.fallbackTokenHint")) + "</div></div>" +
+      '<input id="afMsgrToken" placeholder="' + escAttr(t(app.hasMessengerFallbackToken ? "form.secretKeep" : "form.fallbackTokenPh")) + '" />' +
+      '<div class="hint">' + esc(t("form.fallbackTokenHint")) + "</div></div>" +
       '<div class="mode-block">' +
-        '<label class="mode-toggle"><input type="checkbox" id="afStore"' + (app.storeEvents === false ? "" : " checked") + " /> <b>" + esc(t("form.storeToggle")) + "</b></label>" +
-        '<div class="hint">' + t("form.storeHint") + "</div>" +
-        '<label class="mode-toggle" style="margin-top:.7rem"><input type="checkbox" id="afEmbed"' + (app.embedEnabled ? " checked" : "") + " /> <b>" + esc(t("form.embedToggle")) + "</b></label>" +
-        '<div class="hint">' + esc(t("form.embedHint")) + "</div>" +
+      '<label class="mode-toggle"><input type="checkbox" id="afStore"' + (app.storeEvents === false ? "" : " checked") + " /> <b>" + esc(t("form.storeToggle")) + "</b></label>" +
+      '<div class="hint">' + t("form.storeHint") + "</div>" +
+      '<label class="mode-toggle" style="margin-top:.7rem"><input type="checkbox" id="afEmbed"' + (app.embedEnabled ? " checked" : "") + " /> <b>" + esc(t("form.embedToggle")) + "</b></label>" +
+      '<div class="hint">' + esc(t("form.embedHint")) + "</div>" +
       "</div>" +
       '<div class="fwd-block">' +
-        '<div class="fwd-title">' + esc(t("form.fwdTitle")) + "</div>" +
-        '<div class="hint" style="margin-bottom:.5rem">' + esc(t("form.fwdHint")) + "</div>" +
-        '<div id="afForwards">' + (app.forwards && app.forwards.length ? app.forwards.map(fwdRowHtml).join("") : "") + "</div>" +
-        '<button type="button" class="btn secondary" id="afAddFwd" style="margin-top:.5rem">' + esc(t("form.fwdAdd")) + "</button>" +
+      '<div class="fwd-title">' + esc(t("form.fwdTitle")) + "</div>" +
+      '<div class="hint" style="margin-bottom:.5rem">' + esc(t("form.fwdHint")) + "</div>" +
+      '<div id="afForwards">' + (app.forwards && app.forwards.length ? app.forwards.map(fwdRowHtml).join("") : "") + "</div>" +
+      '<button type="button" class="btn secondary" id="afAddFwd" style="margin-top:.5rem">' + esc(t("form.fwdAdd")) + "</button>" +
       "</div>";
 
     var ov = document.createElement("div"); ov.className = "drawer-overlay";
     ov.innerHTML =
       '<div class="drawer" role="dialog" aria-modal="true" aria-label="' + escAttr(title) + '">' +
-        '<div class="drawer-head"><h3>' + esc(title) + '</h3><button class="btn ghost icon-btn" id="afClose" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button></div>" +
-        '<div class="drawer-body">' + fields + "</div>" +
-        '<div class="drawer-foot"><button class="btn ghost" id="afCancel">' + esc(t("form.cancel")) + '</button><button class="btn" id="afSave">' + esc(isEdit ? t("form.save") : t("form.create")) + "</button></div>" +
+      '<div class="drawer-head"><h3>' + esc(title) + '</h3><button class="btn ghost icon-btn" id="afClose" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button></div>" +
+      '<div class="drawer-body">' + fields + "</div>" +
+      '<div class="drawer-foot"><button class="btn ghost" id="afCancel">' + esc(t("form.cancel")) + '</button><button class="btn" id="afSave">' + esc(isEdit ? t("form.save") : t("form.create")) + "</button></div>" +
       "</div>";
     document.body.appendChild(ov); drawerEl = ov;
     ov.addEventListener("mousedown", function (e) { if (e.target === ov) closeDrawer(); });
@@ -705,16 +705,16 @@
         ? t("channels.lastEvent", { t: '<span title="' + escAttr(fmtAbs(c.lastEventAt)) + '">' + esc(timeAgo(c.lastEventAt)) + "</span>" })
         : esc(t("channels.noEvents"));
       return '<div class="health ' + esc(c.type) + '">' +
-          '<div class="health-top">' + chAvatar(c) +
-            '<div class="health-name"><div class="nm">' + esc(c.name) + ' <span class="badge ' + c.type + '">' + esc(chName(c.type)) + "</span></div>" +
-              '<div class="meta-line" title="' + escAttr(t("channels.idPrefix") + ": " + c.externalId + " · " + t("channels.appPrefix") + ": " + c.appName) + '">' + esc(c.externalId) + " · " + esc(c.appName) + "</div></div>" +
-            '<div class="health-actions">' +
-              '<button class="btn ghost icon-btn tiny" data-refresh="' + escAttr(c.id) + '" title="' + escAttr(t("channels.refresh")) + '">' + icon("refresh") + "</button>" +
-              '<button class="btn danger tiny" data-del="' + escAttr(c.id) + '">' + esc(t("channels.remove")) + "</button>" +
-            "</div>" +
-          "</div>" +
-          '<div class="health-mid"><div class="h-last">' + sub + " · " + last + '</div><div class="health-spark">' + channelSpark(c.id) + "</div></div>" +
-          chDetails(c) +
+        '<div class="health-top">' + chAvatar(c) +
+        '<div class="health-name"><div class="nm">' + esc(c.name) + ' <span class="badge ' + c.type + '">' + esc(chName(c.type)) + "</span></div>" +
+        '<div class="meta-line" title="' + escAttr(t("channels.idPrefix") + ": " + c.externalId + " · " + t("channels.appPrefix") + ": " + c.appName) + '">' + esc(c.externalId) + " · " + esc(c.appName) + "</div></div>" +
+        '<div class="health-actions">' +
+        '<button class="btn ghost icon-btn tiny" data-refresh="' + escAttr(c.id) + '" title="' + escAttr(t("channels.refresh")) + '">' + icon("refresh") + "</button>" +
+        '<button class="btn danger tiny" data-del="' + escAttr(c.id) + '">' + esc(t("channels.remove")) + "</button>" +
+        "</div>" +
+        "</div>" +
+        '<div class="health-mid"><div class="h-last">' + sub + " · " + last + '</div><div class="health-spark">' + channelSpark(c.id) + "</div></div>" +
+        chDetails(c) +
         "</div>";
     }).join("");
     Array.prototype.forEach.call(el.querySelectorAll("[data-del]"), function (btn) {
@@ -742,7 +742,7 @@
       if (chHasDetails(c) || chAutoTried[c.id]) return;
       chAutoTried[c.id] = true;
       api("/api/channels/" + encodeURIComponent(c.id) + "/refresh", { method: "POST" })
-        .then(function (d) { if (d && d.channel) patchChannel(d.channel); }).catch(function () {});
+        .then(function (d) { if (d && d.channel) patchChannel(d.channel); }).catch(function () { });
     });
   }
 
@@ -766,8 +766,8 @@
     var ov = document.createElement("div"); ov.className = "drawer-overlay";
     ov.innerHTML =
       '<div class="drawer narrow" role="dialog" aria-modal="true" aria-label="' + escAttr(t("connect.cta")) + '">' +
-        '<div class="drawer-head"><h3>' + esc(t("connect.cta")) + '</h3><button class="btn ghost icon-btn" id="cdClose" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button></div>" +
-        '<div class="drawer-body">' + inner + "</div>" +
+      '<div class="drawer-head"><h3>' + esc(t("connect.cta")) + '</h3><button class="btn ghost icon-btn" id="cdClose" aria-label="' + escAttr(t("form.close")) + '">' + icon("x") + "</button></div>" +
+      '<div class="drawer-body">' + inner + "</div>" +
       "</div>";
     document.body.appendChild(ov); drawerEl = ov;
     ov.addEventListener("mousedown", function (e) { if (e.target === ov) closeDrawer(); });
@@ -804,7 +804,7 @@
       o.type = "sine"; o.frequency.setValueAtTime(880, t0); o.frequency.exponentialRampToValueAtTime(1320, t0 + .08);
       g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.1, t0 + .01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + .2);
       o.connect(g); g.connect(audioCtx.destination); o.start(t0); o.stop(t0 + .22);
-    } catch (e) {}
+    } catch (e) { }
   }
   function startEvents() {
     fetchEvents(true);
@@ -828,7 +828,7 @@
       }
       if (eventsBuffer.length) lastEventTs = eventsBuffer[0].ts;
       afterEventsChanged();
-    }).catch(function () {});
+    }).catch(function () { });
   }
   function afterEventsChanged() {
     renderConsoleVolume();
@@ -863,19 +863,19 @@
     var sigBadge = ev.signatureValid === false ? ' <span class="badge warn" title="' + escAttr(t("events.sigBadTitle")) + '">' + esc(t("events.sigBad")) + "</span>" : "";
     var isNew = newIds[ev.id] ? " event-new" : "";
     return '<div class="event event-' + esc(ev.product) + isNew + '">' +
-        '<span class="ev-rail"></span>' +
-        '<span class="ev-time" title="' + escAttr(fmtAbs(ev.ts)) + '">' + esc(timeAgo(ev.ts)) + "</span>" +
-        '<div class="ev-main">' +
-          '<div class="ev-head">' + badgeForProduct(ev.product) +
-            '<span class="badge ' + (ev.appId ? "neutral" : "warn") + '">' + esc(ev.appName) + "</span>" +
-            '<span class="badge ' + (ev.channelId ? "ok" : "warn") + '">' + esc(ev.channelId ? t("events.channel") : t("events.noChannel")) + "</span>" +
-            sigBadge + fwdBadges(ev.forwards) +
-          "</div>" +
-          '<div class="ev-summary">' + esc(cleanSummary(ev.summary)) + "</div>" +
-          "<details><summary>" + esc(t("events.payload")) + '</summary><pre>' + highlightJson(ev.raw) + "</pre>" +
-            '<button class="btn secondary copy tiny" data-copy-text="' + escAttr(JSON.stringify(ev.raw)) + '" style="margin-top:.5rem">' + esc(t("events.copyPayload")) + "</button>" +
-          "</details>" +
-        "</div>" +
+      '<span class="ev-rail"></span>' +
+      '<span class="ev-time" title="' + escAttr(fmtAbs(ev.ts)) + '">' + esc(timeAgo(ev.ts)) + "</span>" +
+      '<div class="ev-main">' +
+      '<div class="ev-head">' + badgeForProduct(ev.product) +
+      '<span class="badge ' + (ev.appId ? "neutral" : "warn") + '">' + esc(ev.appName) + "</span>" +
+      '<span class="badge ' + (ev.channelId ? "ok" : "warn") + '">' + esc(ev.channelId ? t("events.channel") : t("events.noChannel")) + "</span>" +
+      sigBadge + fwdBadges(ev.forwards) +
+      "</div>" +
+      '<div class="ev-summary">' + esc(cleanSummary(ev.summary)) + "</div>" +
+      "<details><summary>" + esc(t("events.payload")) + '</summary><pre>' + highlightJson(ev.raw) + "</pre>" +
+      '<button class="btn secondary copy tiny" data-copy-text="' + escAttr(JSON.stringify(ev.raw)) + '" style="margin-top:.5rem">' + esc(t("events.copyPayload")) + "</button>" +
+      "</details>" +
+      "</div>" +
       "</div>";
   }
   function eventMatches(e) {
@@ -898,10 +898,10 @@
     var pageList = list.slice(evtPage * EVT_PAGE_SIZE, (evtPage + 1) * EVT_PAGE_SIZE);
     var pager = pages > 1
       ? '<div class="pager">' +
-          '<button class="btn secondary" id="evtPrev"' + (evtPage === 0 ? " disabled" : "") + ">" + esc(t("events.prev")) + "</button>" +
-          '<span class="pager-info">' + esc(t("events.pageOf", { cur: evtPage + 1, total: pages })) + "</span>" +
-          '<button class="btn secondary" id="evtNext"' + (evtPage >= pages - 1 ? " disabled" : "") + ">" + esc(t("events.next")) + "</button>" +
-        "</div>" : "";
+      '<button class="btn secondary" id="evtPrev"' + (evtPage === 0 ? " disabled" : "") + ">" + esc(t("events.prev")) + "</button>" +
+      '<span class="pager-info">' + esc(t("events.pageOf", { cur: evtPage + 1, total: pages })) + "</span>" +
+      '<button class="btn secondary" id="evtNext"' + (evtPage >= pages - 1 ? " disabled" : "") + ">" + esc(t("events.next")) + "</button>" +
+      "</div>" : "";
     el.innerHTML = pageList.map(eventHtml).join("") + pager;
     var pv = $("evtPrev"); if (pv) pv.addEventListener("click", function () { evtPage--; renderEventsFiltered(); window.scrollTo(0, 0); });
     var nx = $("evtNext"); if (nx) nx.addEventListener("click", function () { evtPage++; renderEventsFiltered(); window.scrollTo(0, 0); });
@@ -919,7 +919,7 @@
     if (b) { b.classList.toggle("paused", !liveOn); b.setAttribute("aria-pressed", liveOn ? "true" : "false"); var l = $("liveToggleLbl"); if (l) l.textContent = t(liveOn ? "events.live" : "events.paused"); }
     var s = $("liveStatus"); if (s) { s.classList.toggle("paused", !liveOn); s.textContent = t(liveOn ? "topbar.monitoring" : "topbar.paused"); }
   }
-  function setSound(on) { soundOn = on; try { localStorage.setItem("hub_sound", on ? "1" : "0"); } catch (e) {} setSoundUI(); if (on) blip(); }
+  function setSound(on) { soundOn = on; try { localStorage.setItem("hub_sound", on ? "1" : "0"); } catch (e) { } setSoundUI(); if (on) blip(); }
   function setSoundUI() { var b = $("soundToggle"); if (b) { b.innerHTML = icon(soundOn ? "sound" : "soundOff"); b.classList.toggle("active", soundOn); } }
 
   // ── Terminal de demonstração (só com DEMO_TERMINAL=1) ──────
@@ -964,7 +964,7 @@
     catch (e) { termStatus("terminal.closed", false); return; }
     TERM.ws = ws;
     ws.onopen = function () {
-      try { TERM.fit && TERM.fit.fit(); } catch (e) {}
+      try { TERM.fit && TERM.fit.fit(); } catch (e) { }
       ws.send(JSON.stringify({ type: "auth", token: token, cols: TERM.term.cols, rows: TERM.term.rows }));
     };
     ws.onmessage = function (ev) {
@@ -979,7 +979,7 @@
     ws.onerror = function () { TERM.ready = false; termStatus("terminal.closed", false); };
   }
   function termDisconnect() {
-    if (TERM.ws) { try { TERM.ws.close(); } catch (e) {} TERM.ws = null; }
+    if (TERM.ws) { try { TERM.ws.close(); } catch (e) { } TERM.ws = null; }
     TERM.ready = false;
   }
   function terminalOnShow() {
@@ -1046,8 +1046,8 @@
     var ov = document.createElement("div"); ov.className = "cmdk-overlay"; ov.id = "cmdkOverlay";
     ov.innerHTML =
       '<div class="cmdk" role="dialog" aria-modal="true" aria-label="' + escAttr(t("cmdk.title")) + '">' +
-        '<div class="cmdk-input-wrap">' + icon("search") + '<input id="cmdkInput" type="text" placeholder="' + escAttr(t("cmdk.placeholder")) + '" autocomplete="off" />' + '<span class="kbd">Esc</span></div>' +
-        '<div class="cmdk-list" id="cmdkList"></div>' +
+      '<div class="cmdk-input-wrap">' + icon("search") + '<input id="cmdkInput" type="text" placeholder="' + escAttr(t("cmdk.placeholder")) + '" autocomplete="off" />' + '<span class="kbd">Esc</span></div>' +
+      '<div class="cmdk-list" id="cmdkList"></div>' +
       "</div>";
     document.body.appendChild(ov);
     CMDK.el = ov;

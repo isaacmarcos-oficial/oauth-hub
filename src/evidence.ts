@@ -1,27 +1,3 @@
-// oauth-hub — Standalone whitelabel hub for Meta channels.
-// Copyright (C) 2026 Comunidade ZDG
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of version 3 of the GNU Affero General Public License as
-// published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-//
-// Source: https://github.com/pedroherpeto/oauth-hub-zdg
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Evidence engine — runs REAL Graph API calls per Meta permission and captures,
-// for each call: HTTP status, x-fb-trace-id, x-fb-request-id and the response
-// body. Mirrors docs/gerar-evidencia-*.mjs, but driven by data "suites" and the
-// hub's own stored tokens. Nothing is fabricated; tokens are scrubbed on output.
-// ─────────────────────────────────────────────────────────────────────────────
-
 const FB_GRAPH = "https://graph.facebook.com";
 
 export interface EvidenceStep {
